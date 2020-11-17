@@ -51,6 +51,8 @@ let employeeDailyWage = new Array();
 let employeeDailyWageMap = new Map();
 /// Map to store the daily wage of the employee
 let employeeDailyHourMap = new Map();
+/// Array to store the object of the employee data -- daynumber, dailyHour, dailyWage, toString()
+let employeeDailyHourAndWageArray = new Array();
 /**
  * * Random number generates a real number between 0 and 1(exclusive)
  * * switch case for checking the employee type
@@ -78,6 +80,19 @@ while(totalWorkingDays < NUM_OF_WORKING_DAYS && totalEmployeeHour <= MAX_HRS_IN_
     employeeDailyWage.push(calculateDailyWageOfEmployee(employeeHours));
     /// UC8 -- Adding the daily wage to the map
     employeeDailyWageMap.set(totalWorkingDays, calculateDailyWageOfEmployee(employeeHours));
+    /// Pushing the object to the Array
+    employeeDailyHourAndWageArray.push
+    (
+        {
+            dayNumber : totalWorkingDays,
+            dailyHour : employeeHours,
+            dailyWage : calculateDailyWageOfEmployee(employeeHours),
+            toString()
+            {
+                return `\n Day : ${this.dayNumber} , Working Hour : ${this.dailyHour} , Wage Earned : ${this.dailyWage}`;
+            },
+        }
+    );
 }
 /// Computing the employee wage
 let employeeWage = calculateDailyWageOfEmployee(totalEmployeeHour);
@@ -221,3 +236,6 @@ employeeDailyHourMap.forEach((value, key, map) =>
 console.log("Days when the employee earned the full time wage --> " + fullworkingDays);
 console.log("Days when the employee earned no wage --> " + nonWorkingDays);
 console.log("Days when the employee earned the part time wage --> "+partWorkingDays);
+/// UC10 --> Storing the detail of the employee in the object
+console.log("Showing Employee Details -->");
+console.log(employeeDailyHourAndWageArray.toString());
