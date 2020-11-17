@@ -49,6 +49,8 @@ let totalWorkingDays = 0;
 let employeeDailyWage = new Array();
 /// Map to store the daily wage of the employee
 let employeeDailyWageMap = new Map();
+/// Map to store the daily wage of the employee
+let employeeDailyHourMap = new Map();
 /**
  * * Random number generates a real number between 0 and 1(exclusive)
  * * switch case for checking the employee type
@@ -68,6 +70,8 @@ while(totalWorkingDays < NUM_OF_WORKING_DAYS && totalEmployeeHour <= MAX_HRS_IN_
     let employeeTypeCheck = Math.floor((Math.random()*10) % 3);
     /// Variable to store the employee working hours
     let employeeHours = GetEmployeeHour(employeeTypeCheck);
+    /// UC9 -- Adding the daily hour to the map
+    employeeDailyHourMap.set(totalWorkingDays, employeeHours);
     /// Incrementing the employee Hour from the value returned from the get employee hour class
     totalEmployeeHour += employeeHours;
     /// UC6 -- Adding the daily wage to the array
@@ -180,3 +184,40 @@ console.log("Number of Days the employee worked for -->" + employeeDailyWage.red
 /// UC8 -- Printing the total wage using the map of employee wage and working days
 /// Basically converting the values part of the map to the array object using from and then using the reduce array helper function
 console.log("Total Wage of Employee using map of employee -->" + Array.from(employeeDailyWageMap.values()).reduce(totalWageResult, 0));
+
+/// UC9 -- Printing the day number and the working hours for the day
+employeeDailyHourMap.forEach((values, keys, map) =>
+{
+    console.log(keys + ": " + values);
+});
+/// UC9a -- Calculate total wage and total hours worked for an employee
+/// Defining an arrow function to aggregate the daily wage to totalWage or daily hour to totalHours
+const calculateTotalWageOrHour = (totalValue, dailyValue) =>
+{
+    return totalValue + dailyValue;
+}
+/// Using reduce function to iterate over the values of map as an array to get the total hour
+let totalHours = Array.from(employeeDailyHourMap.values()).reduce(calculateTotalWageOrHour, 0);
+/// Using the filter function to calculate the total salary from the employee daily wage array
+let totalWage = employeeDailyWage.filter(dailyWage => dailyWage > 0).reduce(calculateTotalWageOrHour, 0);
+/// Printing the result to the console
+console.log("Employee Wage with arrow function :" + "Total Wage = " + totalWage + "  ,  Total Hours = " + totalHours);
+
+/// UC9b -- Find fullTime day number and part time day number and non working days number
+/// Array to store the non earning day
+let nonWorkingDays = new Array();
+/// Array to store the part time earning day
+let partWorkingDays = new Array();
+/// Array to store the full time earning day
+let  fullworkingDays = new Array();
+/// Iterating over the daily hour map to group the data value wise
+employeeDailyHourMap.forEach((value, key, map) =>
+{
+    if(value == 8) fullworkingDays.push(key);
+    else if (value == 4) partWorkingDays.push(key);
+    else nonWorkingDays.push(key);
+});
+/// Printing the result to the console
+console.log("Days when the employee earned the full time wage --> " + fullworkingDays);
+console.log("Days when the employee earned no wage --> " + nonWorkingDays);
+console.log("Days when the employee earned the part time wage --> "+partWorkingDays);
