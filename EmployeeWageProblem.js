@@ -239,3 +239,23 @@ console.log("Days when the employee earned the part time wage --> "+partWorkingD
 /// UC10 --> Storing the detail of the employee in the object
 console.log("Showing Employee Details -->");
 console.log(employeeDailyHourAndWageArray.toString());
+/// UC11a -- Calculate total wage and total working hours using arrow function
+/// Calculating the total wage by applying filter to the object array and then aggregrate the total wage or hour to print total Wage or Hours for employees
+let totalWageForEmployees = employeeDailyHourAndWageArray.filter
+(dailyHourAndWage => dailyHourAndWage.dailyWage > 0).reduce((totalWage, dailyHourAndWage) => totalWage += dailyHourAndWage.dailyWage, 0);
+let totalHoursForEmployees = employeeDailyHourAndWageArray.filter
+(dailyHourAndWage => dailyHourAndWage.dailyWage > 0).reduce((totalHours, dailyHourAndWage) => totalHours += dailyHourAndWage.dailyHour, 0);
+/// UC11a --> Printing the  result of arrow function return to the console 
+console.log("\nTotal Wage = "+totalWageForEmployees + " , Total Hours = " + totalHoursForEmployees);
+/// UC11b --> Sorting the details for the full time wage earned data details from object
+process.stdout.write("\n\nFull Time Wage day data details -->\n");
+employeeDailyHourAndWageArray.filter(dailyHourAndWage => dailyHourAndWage.dailyHour == 8).forEach
+((dailyHourAndWage) => process.stdout.write(dailyHourAndWage.toString()));
+/// UC11c --> Sorting the details for the part time wage earned data details from object
+process.stdout.write("\n\nPart Time Wage day data details -->\n");
+employeeDailyHourAndWageArray.filter(dailyHourAndWage => dailyHourAndWage.dailyHour == 4).forEach
+((dailyHourAndWage) => process.stdout.write(dailyHourAndWage.toString()));
+/// UC11d --> Sorting the details for the no wage earned data details from object
+process.stdout.write("\n\nNo Wage Earning day data details -->\n");
+employeeDailyHourAndWageArray.filter(dailyHourAndWage => dailyHourAndWage.dailyHour == 0).forEach
+((dailyHourAndWage) => process.stdout.write(dailyHourAndWage.toString()));
