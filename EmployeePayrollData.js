@@ -2,20 +2,7 @@
 class EmployeePayrollData
 {
     /// Property defining the data instances
-    id; 
     salary;
-    /// UC13 -- Adding the gender and start date to employee payroll class
-    gender;
-    startDate;
-    /// Parameterised constructor to initialise the data instances with value passed
-    constructor(...params)
-    {
-        this.id = params[0];
-        this.name = params[1];
-        this.salary = params[2];
-        this.gender = params[3];
-        this.startDate = params[4];
-    }
     /// Using getters and setters for name
     get name() { return this._name; }
     set name(value) 
@@ -28,7 +15,55 @@ class EmployeePayrollData
         }
         else
         throw "Invalid Name";
-     }
+    }
+    /// Getter and Setter for the id of the employee
+    get id() { return this._id; }
+    set id(value)
+    {
+        if(value > 0)
+        {
+            console.log("Valid Id");
+            this._id = value;
+        }
+            else
+            throw "Invalid ID";
+    }
+    /// Getter and Setter for the gender of the employee
+    get gender() { return this._gender; }
+    set gender(value)
+    {
+        let GENDER_REGEX = RegExp('^[M,F,m,f]{1}$');
+        if(GENDER_REGEX.test(value))
+        {
+            console.log("Valid gender");
+            this._gender = value;
+        }
+        else
+        throw "Kindly enter gender as M or F";
+    }
+    /// Getter and Setter for the gender of the employee
+    get startDate() { return this._startDate; }
+    /// Setter for the gender of the employee
+    set startDate(value)
+    {
+        if(value <= new Date())
+        {
+            console.log("Valid Date");
+            this._startDate = value;
+        }
+        else
+        throw "A future date is not accepted";
+    }
+    /// UC13 -- Adding the gender and start date to employee payroll class
+    /// Parameterised constructor to initialise the data instances with value passed
+    constructor(...params)
+    {
+        this.id = params[0];
+        this.name = params[1];
+        this.salary = params[2];
+        this.gender = params[3];
+        this.startDate = params[4];
+    }
     /// Using a member instance to display the stored details of the employees
     /// Returning a string representation of employees data
     toString()
@@ -40,7 +75,7 @@ class EmployeePayrollData
     }
 }
 /// Creating an instance of the class with data instance values
-let employeesPayrollData = new EmployeePayrollData(1, "Varun", 50000);
+let employeesPayrollData = new EmployeePayrollData(1, "Varun", 50000, "M", new Date(2014, 04, 12));
 /// Printing the details of the object using the toString method
 console.log(employeesPayrollData.toString());
 try
