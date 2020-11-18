@@ -3,7 +3,6 @@ class EmployeePayrollData
 {
     /// Property defining the data instances
     id; 
-    name;
     salary;
     /// UC13 -- Adding the gender and start date to employee payroll class
     gender;
@@ -17,6 +16,19 @@ class EmployeePayrollData
         this.gender = params[3];
         this.startDate = params[4];
     }
+    /// Using getters and setters for name
+    get name() { return this._name; }
+    set name(value) 
+    {
+        let NAME_REGEX = RegExp('^[A-Z]{1}[a-z]{3,}$');
+        if(NAME_REGEX.test(value))
+        {
+            console.log(value + ' is a valid name');
+            this._name = value;
+        }
+        else
+        throw "Invalid Name";
+     }
     /// Using a member instance to display the stored details of the employees
     /// Returning a string representation of employees data
     toString()
@@ -31,10 +43,14 @@ class EmployeePayrollData
 let employeesPayrollData = new EmployeePayrollData(1, "Varun", 50000);
 /// Printing the details of the object using the toString method
 console.log(employeesPayrollData.toString());
-/// Reinitializing the instance of the class with a different values
-employeesPayrollData.name = "Gopi";
-/// Printing the details of the object using the toString method after reinitialising the instance member
-console.log(employeesPayrollData.toString());
+try
+{
+    /// Reinitializing the instance of the class with a different values
+    employeesPayrollData.name = "Gopi";
+    /// Printing the details of the object using the toString method after reinitialising the instance member
+    console.log(employeesPayrollData.toString());
+}
+catch (err) {console.error(err);}
 /// Creating an instance of the class with data instance values
 let otherEmployeesPayrollData = new EmployeePayrollData(1, "Terissa", 40000, "F", new Date());
 /// Printing the details of the object using the toString method
